@@ -13,13 +13,13 @@ struct FilmsView: View {
     
     var body: some View {
             NavigationView{
-                List(filmCards){ filmCard in
+                /*List(filmCards){ filmCard in
                     VStack {
                         Text(filmCard.nameRu)
                             .fontWeight(.bold)
                             .foregroundColor(.red)
                     }
-                }
+                }*/
                 Text("Films")
                 .onAppear(){
                     API().getFilmCard { (filmCards) in
@@ -104,18 +104,3 @@ struct FilmCard: Codable, Equatable, Identifiable {
         "\(ratingVoteCount / 1000)K"
     }
 }
-
-/*"filmId": 435,
-"nameRu": "Зеленая миля",
-"nameEn": "The Green Mile",
-"year": "1999",
-"filmLength": "03:09",
-"countries": [],
-"genres": [],
-"rating": "9.1",
-"ratingVoteCount": 882768,
-"posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/435.jpg",
-"posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/435.jpg",
-"ratingChange": null
-}
-*/

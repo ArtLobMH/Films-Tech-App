@@ -21,9 +21,9 @@ class API{
                 }
                 print("data \(data)")
                 let filmCards = try? JSONDecoder().decode([FilmCard].self, from: data)
-                DispatchQueue.main.async {
+                /*DispatchQueue.main.async {
                     completion(filmCards ?? [])
-                }
+                }*/
             }
             dataTask.resume()
         }
