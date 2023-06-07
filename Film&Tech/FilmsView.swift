@@ -9,25 +9,20 @@ import SwiftUI
 
 struct FilmsView: View {
     
-    @State var filmCards: [FilmCard] = []
+    @StateObject private var viewModel = FilmsViewModel()
     
     var body: some View {
-            NavigationView{
-                /*List(filmCards){ filmCard in
-                    VStack {
-                        Text(filmCard.nameRu)
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
-                    }
-                }*/
-                Text("Films")
-                .onAppear(){
-                    API().getFilmCard { (filmCards) in
-                        self.filmCards = filmCards
-                    }
+        NavigationView{
+            List(viewModel.filmCards){ filmCard in
+                VStack {
+                    Text(filmCard.nameRu)
+                        .fontWeight(.bold)
+                        .foregroundColor(.red)
                 }
-                .navigationBarTitle("Films")
             }
+            Text("Films")
+                .navigationBarTitle("Films")
+        }
     }
 }
 
@@ -102,5 +97,18 @@ struct FilmCard: Codable, Equatable, Identifiable {
     
     var ratingVoteString: String {
         "\(ratingVoteCount / 1000)K"
+    }
+}
+
+
+final class FilmsViewModel: ObservableObject {
+    @Published var filmCards: [FilmCard] = []
+    
+    func get() {
+        .onAppear(){
+            API().getFilmCard { (filmCards) in
+                self.filmCards = filmCards
+            }
+        }
     }
 }

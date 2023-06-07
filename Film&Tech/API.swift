@@ -14,16 +14,17 @@ class API{
             request.addValue("403f07b8-4e7a-410f-b9a4-d123cdf27b52", forHTTPHeaderField: "TRN-Api-Key")
             request.httpMethod = "GET"
             let dataTask = URLSession.shared.dataTask(with: request) { (data, _, _) in
-                print(1)
                 guard let data else {
                     print("data")
                     return
                 }
-                print("data \(data)")
-                let filmCards = try? JSONDecoder().decode([FilmCard].self, from: data)
-                /*DispatchQueue.main.async {
+                let result: ResultTop250 = try! JSONDecoder().decode(ResultTop250.self, from: data)
+                print("result", result.pagesCount)
+                var filmCards = result.films
+                DispatchQueue.main.async {
                     completion(filmCards ?? [])
-                }*/
+                }
+                print(filmCards[2])
             }
             dataTask.resume()
         }
