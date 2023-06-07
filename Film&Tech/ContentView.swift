@@ -17,51 +17,15 @@ struct ContentView: View {
                 }
             CategoryView()
                 .tabItem{
-                    Image("cart")
+                    Image("compare")
                     Text("Category")
                 }
-            CompareView()
+            MarketView()
                 .tabItem{
-                    Image("compare")
-                    Text("Compare")
+                    Image("cart")
+                    Text("Market")
                 }
         }
-    }
-}
-
-struct FilmsView: View {
-    var body: some View {
-        ZStack {
-            Color.gray
-            ScrollView{
-                VStack {
-                    ForEach(/*@START_MENU_TOKEN@*/0 ..< 5/*@END_MENU_TOKEN@*/) { item in
-                        FilmCard()
-                    }
-                }
-            }
-        }
-    }
-}
-
-struct FilmCard: View {
-    var body: some View {
-        Rectangle()
-            .frame(height : 250)
-            .background(Color.black)
-        .padding(.bottom, 20)
-    }
-}
-
-struct CategoryView: View {
-    var body: some View {
-        Text("Category")
-    }
-}
-
-struct CompareView: View {
-    var body: some View {
-        Text("Compare")
     }
 }
 
