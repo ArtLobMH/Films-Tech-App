@@ -17,11 +17,10 @@ struct FilmsView: View {
                 VStack {
                     Text(filmCard.nameRu)
                         .fontWeight(.bold)
-                        .foregroundColor(.red)
                 }
             }
             Text("Films")
-                .navigationBarTitle("Films")
+            .navigationBarTitle("Films")
         }
     }
 }
@@ -104,11 +103,13 @@ struct FilmCard: Codable, Equatable, Identifiable {
 final class FilmsViewModel: ObservableObject {
     @Published var filmCards: [FilmCard] = []
     
+    init() {
+        get()
+    }
+    
     func get() {
-        .onAppear(){
-            API().getFilmCard { (filmCards) in
-                self.filmCards = filmCards
-            }
+        API().getFilmCard { (filmCards) in
+            self.filmCards = filmCards
         }
     }
 }

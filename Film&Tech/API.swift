@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/*
 class API{
     func getFilmCard(completion: @escaping ([FilmCard]) -> ()){
         if let url = URL(string: "https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=1") {
@@ -18,15 +18,48 @@ class API{
                     print("data")
                     return
                 }
-                let result: ResultTop250 = try! JSONDecoder().decode(ResultTop250.self, from: data)
+                let filmCards = try! JSONDecoder().decode([FilmCard].self, from: data)
+                /*let result: ResultTop250 = try! JSONDecoder().decode(ResultTop250.self, from: data)
                 print("result", result.pagesCount)
-                var filmCards = result.films
+                let filmCards = result.films*/
                 DispatchQueue.main.async {
                     completion(filmCards ?? [])
                 }
                 print(filmCards[2])
             }
             dataTask.resume()
+        }
+    }
+}*/
+
+class API{
+    func getFilmCard(completion: @escaping ([FilmCard]) -> ()){
+        if let url = URL(string: "https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=1") {
+            var request = URLRequest(url: url)
+            request.addValue("403f07b8-4e7a-410f-b9a4-d123cdf27b52", forHTTPHeaderField: "X-API-KEY")
+            request.httpMethod = "GET"
+            URLSession.shared.dataTask(with: request) { (data, res , error) in
+                print(error?.localizedDescription)
+                print(res)
+                
+                guard let data else {
+                    print("data")
+                    return
+                }
+                guard let result: ResultTop250 = try? JSONDecoder().decode(ResultTop250.self, from: data)
+                else {
+                    fatalError("error")
+                    return
+                }
+//            https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=1
+
+//                print("result", result.pagesCount)
+                let filmCards = result.films
+                DispatchQueue.main.async {
+                    completion(filmCards)
+                }
+            }
+            .resume()
         }
     }
 }
